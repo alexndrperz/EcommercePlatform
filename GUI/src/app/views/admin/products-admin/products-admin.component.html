@@ -1,2 +1,13 @@
  <section class="container-sm"></section>
  <app-navbar [activeRoute]="'products-adm'"></app-navbar>
+
+
+
+<!-- Button trigger modal -->
+
+
+
+
+ <section class="container-sm mt-4">
+    <app-present-table [typeTable]="'Productos'" (productoCSave) = "createProduct($event)" (deleteEvent)="deleteProductAdm($event)" (productoESave)="updateProductAdm($event)" [headerTable]="header" [data]="internalData"></app-present-table>
+ </section>

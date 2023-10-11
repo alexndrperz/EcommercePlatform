@@ -1,1 +1,5 @@
 <app-navbar [activeRoute]="'users-adm'"></app-navbar>
+
+<section class="container-sm mt-4">
+    <app-present-table [typeTable]="'Usuarios'" [headerTable]="internalHeaders" [data]="internalData" [isUserData]="true" (createUserEvt)="createUser($event) " (deleteEventUser)="deleteUser($event)"></app-present-table>
+</section>

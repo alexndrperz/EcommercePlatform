@@ -2,11 +2,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ProductsAdminComponent } from './views/admin/products-admin/products-admin.component';
 import { UsersAdminComponent } from './views/admin/users-admin/users-admin.component';
+import { LoginComponent } from './views/login/login.component';
 
 const routes: Routes = [
   {
     path:'',
-    redirectTo:'admin',
+    redirectTo:'login',
     pathMatch:'full'
   },
   // {
@@ -14,6 +15,12 @@ const routes: Routes = [
   //   redirectTo:'admin',
   //   pathMatch:'full'
   // },
+
+
+  {
+    path:'login',
+    component:LoginComponent
+  },
 
   {
     path:'admin', 

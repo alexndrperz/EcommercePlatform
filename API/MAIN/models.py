@@ -26,8 +26,13 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=254)
     balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     is_staff = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
     USERNAME_FIELD='name'
     objects = UserManager()
+    
+    @property
+    def total_purchases(self):
+        return self.transacts_set.count()
     
     
 class Productos(models.Model):
@@ -35,6 +40,7 @@ class Productos(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
     createdAt = models.DateField(auto_now_add=True)
+
     
 class Transacts(models.Model):
     product = models.ForeignKey(Productos, on_delete=models.CASCADE)

@@ -1,0 +1,19 @@
+<!-- Modal -->
+<div class="modal fade" id="modal-adm" tabindex="-1" aria-labelledby="exampleModalLabel"  style="opacity: 1 !important;" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel"> {{modalTitle}}</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <ng-content></ng-content>
+        </div>
+        <div class="modal-footer">
+          <button type="button" *ngIf="modalTitle == 'Añadir Producto'" class="btn btn-outline-primary" data-bs-dismiss="modal" aria-label="Close" (click)="guardar.emit()">Guardar</button>
+          <button type="button" *ngIf="modalTitle == 'Editar Producto'" class="btn btn-outline-primary" data-bs-dismiss="modal" aria-label="Close" (click)="guardarEdit.emit()">Guardar</button>
+          <button type="button" *ngIf="modalTitle == 'Agregar Usuario'" class="btn btn-outline-primary" data-bs-dismiss="modal" aria-label="Close" (click)="guardarUser.emit()">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
