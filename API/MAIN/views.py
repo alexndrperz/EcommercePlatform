@@ -2,6 +2,7 @@ from rest_framework import viewsets
 from . import models, serializers
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.models import Group
 
 
 class ProductsView(viewsets.ModelViewSet):
@@ -41,6 +42,7 @@ class UsersView(viewsets.ModelViewSet):
         return JsonResponse({'data':serializer.data}, status=200)
     
     def create_user(self, request):
+        group = Group.objects.get(name='Compradores')
         name = request.data.get('name',None)
         password = request.data.get('password',None)
         if not name or not password:
@@ -48,6 +50,8 @@ class UsersView(viewsets.ModelViewSet):
         else:
             user = models.User(name=name)
             user.set_password(password)
+            user.save()
+            user.groups.add(group)
             user.save()
         return JsonResponse({},status=204)
     

@@ -10,6 +10,7 @@ import { PresentTableComponent } from './components/present-table/present-table.
 import { ModalComponent } from './components/modal/modal.component';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './views/login/login.component';
+import { BuyProductsComponent } from './views/buyers/buy-products/buy-products.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { LoginComponent } from './views/login/login.component';
     NavbarComponent,
     PresentTableComponent,
     ModalComponent,
-    LoginComponent
+    LoginComponent,
+    BuyProductsComponent
   ],
   imports: [
     BrowserModule,

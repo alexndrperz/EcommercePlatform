@@ -38,8 +38,9 @@ export class PresentTableComponent {
 
   openAddModal() {
     this.typeAction = "Añadir Producto"
-    if(this.formData.id) {
-      delete this.formData.id
+    this.formData = {
+      name:'',
+      password:''
     }
   }
   objectKeys(obj: any): string[] {

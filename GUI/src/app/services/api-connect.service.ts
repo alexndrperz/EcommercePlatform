@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import jwtDecode from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +10,16 @@ export class ApiConnectService  {
   constructor(private _http:HttpClient) { }
 
   host = "http://127.0.0.1:8000/"
+
+  decodeCookie() {
+    const token = sessionStorage.getItem('tkn')
+    if(token) {
+      return jwtDecode(token)
+    }
+    else {
+      return {}
+    } 
+  }
 
   getSecure(path:string) {
    return this._http.get(`${this.host}${path}`)

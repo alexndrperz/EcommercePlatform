@@ -45,7 +45,7 @@ export class UsersAdminComponent implements OnInit {
     this._apiConnect.postSecure('users', data)
     .subscribe({
       next:(response:any) => {
-        console.log(response)
+        this.getUsers()
       },
       error:(error:any)=> {
         console.log(error)

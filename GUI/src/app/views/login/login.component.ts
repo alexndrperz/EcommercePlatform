@@ -28,8 +28,8 @@ export class LoginComponent {
         if (decodedUserInfo.user_group[0] == "Administradores") {
           this.router.navigate(['/admin'])
         }
-        else {
-          this.router.navigate(['/admin/users'])
+        else if(decodedUserInfo.user_group[0] =='Compradores') {
+          this.router.navigate(['/buyers'])
         }
        }
 
