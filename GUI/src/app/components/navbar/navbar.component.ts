@@ -7,6 +7,6 @@ import { Component, Input } from '@angular/core';
 })
 export class NavbarComponent {
   @Input() activeRoute:string = ""
-
+  @Input() is_buyer_view:boolean = false
   
 }

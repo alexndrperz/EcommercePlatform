@@ -6,6 +6,7 @@ import { LoginComponent } from './views/login/login.component';
 import { AuthGuardAdminService } from './services/auth-guard-admin.service';
 import { BuyProductsComponent } from './views/buyers/buy-products/buy-products.component';
 import { AuthGuardBuyerService } from './services/auth-guard-buyer.service';
+import { SeeTransactsByrComponent } from './views/buyers/see-transacts-byr/see-transacts-byr.component';
 
 const routes: Routes = [
   {
@@ -30,7 +31,8 @@ const routes: Routes = [
     canActivate:[AuthGuardBuyerService],
     children:[
       {path:'', redirectTo:'productos', pathMatch:'full'},
-      {path:'productos', component:BuyProductsComponent}
+      {path:'productos', component:BuyProductsComponent},
+      {path:'transacts', component:SeeTransactsByrComponent}
     ]
   },
 
