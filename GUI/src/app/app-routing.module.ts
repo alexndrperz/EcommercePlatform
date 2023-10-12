@@ -7,6 +7,7 @@ import { AuthGuardAdminService } from './services/auth-guard-admin.service';
 import { BuyProductsComponent } from './views/buyers/buy-products/buy-products.component';
 import { AuthGuardBuyerService } from './services/auth-guard-buyer.service';
 import { SeeTransactsByrComponent } from './views/buyers/see-transacts-byr/see-transacts-byr.component';
+import { TransactsAdminComponent } from './views/admin/transacts-admin/transacts-admin.component';
 
 const routes: Routes = [
   {
@@ -42,7 +43,8 @@ const routes: Routes = [
     children: [
       {path:'', redirectTo:'productos', pathMatch:'full'},
       {path:'productos',component:ProductsAdminComponent},
-      {path:'users',component:UsersAdminComponent}
+      {path:'users',component:UsersAdminComponent},
+      {path:'transacts',component:TransactsAdminComponent}
     ]
   }
 ];

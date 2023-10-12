@@ -1,6 +1,8 @@
+import os
+from openpyxl import load_workbook
 from rest_framework import viewsets
 from . import models, serializers
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import Group
 
@@ -41,6 +43,11 @@ class UsersView(viewsets.ModelViewSet):
         serializer = serializers.UserSerializer(queryset, many=True)
         return JsonResponse({'data':serializer.data}, status=200)
     
+
+    def get_user_balance(self, request, id):
+        user = get_object_or_404(models.User, id=id)
+        return JsonResponse({'balance':user.balance})
+    
     def create_user(self, request):
         group = Group.objects.get(name='Compradores')
         name = request.data.get('name',None)
@@ -60,3 +67,46 @@ class UsersView(viewsets.ModelViewSet):
         user.is_active = False
         user.save()
         return JsonResponse({}, status=204)
+    
+
+class TransactsView(viewsets.ModelViewSet):
+    queryset = models.Transacts.objects.all()
+    serializer_class = serializers.TransactSerializer
+
+    def get_all_transacts(self, request):
+        transacts= models.Transacts.objects.all()
+        serializer = serializers.TransactSerializer(transacts, many=True)
+        return JsonResponse({'data':serializer.data})
+
+    def buy_product(self, request, product_id, buyer_id):
+        product = get_object_or_404(models.Productos, id=product_id)
+        user = get_object_or_404(models.User, id=buyer_id)
+        transact = models.Transacts.objects.create(product=product, buyer=user, quantity=1, total=product.price)
+        user.balance -= transact.total
+        user.save()
+        return JsonResponse({}, status=201)
+    
+    def get_transacts_user_based(self, request,id_user):
+        user= get_object_or_404(models.User,id=id_user)
+        transacts = models.Transacts.objects.filter(buyer=user)
+        serializer = serializers.TransactSerializer(transacts, many=True)
+        return JsonResponse({'data':serializer.data})
+    
+    def get_transacts_xlsx(self, request):
+        transacts = models.Transacts.objects.all()
+        serializer = serializers.TransactSerializer(transacts, many=True)
+        data = serializer.data
+        print(os.path.abspath('dat_pl.xlsx'))
+        workbook = load_workbook(os.path.abspath('dat_pl.xlsx'))
+        worksheet = workbook['Hoja1']
+        for row, item in enumerate(data, start=2):
+            worksheet.cell(row=row, column=1, value=item['id'])
+            worksheet.cell(row=row, column=2, value=item['product'])
+            worksheet.cell(row=row, column=3, value=item['buyer'])
+            worksheet.cell(row=row, column=4, value=item['createdAt'])
+            worksheet.cell(row=row, column=5, value=item['quantity'])
+            worksheet.cell(row=row, column=6, value=item['total'])
+        response = HttpResponse(content_type='application/ms-excel')
+        response['Content-Disposition'] = 'attachment; filename="archivo.xlsx"'
+        workbook.save(response)
+        return response

@@ -47,3 +47,17 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.User
         fields= ('id','name','purchases_count','is_active')
+
+class TransactSerializer(serializers.ModelSerializer):
+    product = serializers.SerializerMethodField()
+    buyer = serializers.SerializerMethodField()
+
+    class Meta:
+        model = models.Transacts
+        fields = '__all__'
+
+    def get_product(self, obj):
+        return obj.product.name
+    
+    def get_buyer(self, obj):
+        return obj.buyer.name

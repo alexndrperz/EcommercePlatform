@@ -1,1 +1,33 @@
 <app-navbar [is_buyer_view]="true" [activeRoute]="'products-byrs'"></app-navbar>
+
+
+
+
+<section class="main container-sm mt-4">
+    <h1>
+        Comprar Productos
+    </h1>
+
+    <hr>
+    <span><b> Usuario:</b> {{username}}</span> <br>
+    <span><b> Balance:</b> {{balance}}</span>
+    <hr>
+
+
+    <table class="table table-hover">
+        <thead> 
+            <th>Producto</th>
+            <th>Precio</th>
+            <th>Acciones</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let product of productData">
+                <td>{{product.name}}</td>
+                <td>{{product.price}}
+                <td>
+                    <button class="btn btn-outline-primary" (click)="buyProduct(product.id)">Comprar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>

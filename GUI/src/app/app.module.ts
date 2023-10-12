@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './views/login/login.component';
 import { BuyProductsComponent } from './views/buyers/buy-products/buy-products.component';
 import { SeeTransactsByrComponent } from './views/buyers/see-transacts-byr/see-transacts-byr.component';
+import { TransactsAdminComponent } from './views/admin/transacts-admin/transacts-admin.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { SeeTransactsByrComponent } from './views/buyers/see-transacts-byr/see-t
     ModalComponent,
     LoginComponent,
     BuyProductsComponent,
-    SeeTransactsByrComponent
+    SeeTransactsByrComponent,
+    TransactsAdminComponent
   ],
   imports: [
     BrowserModule,

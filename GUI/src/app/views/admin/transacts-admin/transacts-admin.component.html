@@ -1,28 +1,29 @@
-<app-navbar [is_buyer_view]="true" [activeRoute]="'see-transacts-byr'" ></app-navbar>
+<app-navbar  [activeRoute]="'transcts-adm'"></app-navbar>
+
 
 <section class="main container-sm mt-4">
     <h1>
-        Ver Transacciones
+        Transacciones del sistema
     </h1>
-    <hr>
-     <span><b> Usuario:</b> {{username}}</span> <br>
-    <span><b> Balance:</b> {{balance}}</span>
+
     <hr>
 
 
     <table class="table table-hover">
         <thead> 
             <th>Id</th>
-            <th>Fecha</th>
             <th>Producto</th>
-            <th>Cantidad</th>
+            <th>Comprador</th>
+            <th>Fecha</th>
+            <th>Cantidad pedida</th>
             <th>Total</th>
         </thead>
         <tbody>
-            <tr *ngFor="let transact of transactsData">
+            <tr *ngFor="let transact of transactsData ">
                 <td>{{transact.id}}</td>
-                <td>{{transact.createdAt}}</td>
                 <td>{{transact.product}}</td>
+                <td>{{transact.buyer}}</td>
+                <td>{{transact.createdAt}}</td>
                 <td>{{transact.quantity}}</td>
                 <td>{{transact.total}}</td>
             </tr>
