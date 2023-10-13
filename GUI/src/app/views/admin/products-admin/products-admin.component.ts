@@ -10,10 +10,28 @@ export class ProductsAdminComponent implements OnInit {
   ngOnInit(): void {
     this.getProductsAdm()
   }
-  header:string[] =['id','Nombre','Precio','Creado en', 'Creado por'] 
-  internalData:any = []
-  constructor(private _apiConnect:ApiConnectService) {
+  header:string[] =['id','Nombre','Precio','Creado en', 'Creado por']
+  
+  data:any[] = [
+    {id:1, name:'Juana'},
+    {id:2, name:'MArtin'},
+    {id:3, name:'Pedro'},
+    {id:4, name:'Maria'}
+  ]
 
+  internalData:any = []
+  constructor(private _apiConnect:ApiConnectService) {}
+
+  mostrarMensaje(nombre:string) {
+    this._apiConnect.getNormalData(nombre)
+    .subscribe({
+      next:(respuestaAPI:any) => {
+        console.log(respuestaAPI.mensaje)
+      },
+      error: (errorAPI) => {
+        console.log(errorAPI)
+      }
+    })
   }
 
   createProduct(data:any) {

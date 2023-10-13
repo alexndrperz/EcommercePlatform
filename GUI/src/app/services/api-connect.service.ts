@@ -21,6 +21,10 @@ export class ApiConnectService  {
     } 
   }
 
+  getNormalData(nombre:string) {
+   return this._http.get(`http://127.0.0.1:8000/mensaje/${nombre}`)
+  }
+
   getSecure(path:string) {
    return this._http.get(`${this.host}${path}`)
   }

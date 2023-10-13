@@ -9,6 +9,7 @@ from MAIN import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('mensaje/<str:name>', views.UsersView.as_view({'get':'mostrar_mensaje'})),
     path('productos', views.ProductsView.as_view({'get':'get_all_products', 'post':'create_product'})),
     path('productos/<int:id>', views.ProductsView.as_view({'put':'update_product', 'delete':'delete_product'})),
     path('users', views.UsersView.as_view({'get':'get_users','post':'create_user'})),

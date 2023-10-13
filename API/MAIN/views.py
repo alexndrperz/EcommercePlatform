@@ -43,6 +43,9 @@ class UsersView(viewsets.ModelViewSet):
         serializer = serializers.UserSerializer(queryset, many=True)
         return JsonResponse({'data':serializer.data}, status=200)
     
+    
+    def mostrar_mensaje(self, request, name):
+        return JsonResponse({'mensaje':f'Hola {name}'})
 
     def get_user_balance(self, request, id):
         user = get_object_or_404(models.User, id=id)
