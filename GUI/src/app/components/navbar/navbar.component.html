@@ -17,6 +17,9 @@
 				<li class="nav-item" [ngClass]="{'active':activeRoute == 'transcts-adm'}">
 					<a class="nav-link" routerLink="/admin/transacts" href="">Transacciones</a>
 				</li>
+				<li class="nav-item" >
+					<a class="nav-link" routerLink="/admin/transacts" (click)="downloadRep()">Reporte</a>
+				</li>
 			</ul>
 
 			<!--Buyer View-->

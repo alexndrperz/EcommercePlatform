@@ -8,6 +8,7 @@ import { ApiConnectService } from 'src/app/services/api-connect.service';
 })
 export class TransactsAdminComponent implements OnInit {
   transactsData:any[] = []
+  totalSis:number = 0;
 
   ngOnInit() {
     this.getTransacts()
@@ -19,12 +20,25 @@ export class TransactsAdminComponent implements OnInit {
     this._apiConnect.getSecure('transacts')
     .subscribe({
       next: (response:any) => {
-        this.transactsData = response.data
+        this.transactsData = response.data;
+        this.totalSis = this.calculateTotalTransacts(response.data);
 
       },
       error:(error:any)=> {
         console.log(error)
       }
     })
+  }
+
+
+  calculateTotalTransacts(transacts:any[]) {
+    let total = 0
+    transacts.forEach(item => {
+      total += parseFloat( item.total)
+    });
+    console.log(total);
+    return total
+    
+
   }
 }

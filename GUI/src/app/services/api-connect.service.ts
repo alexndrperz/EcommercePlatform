@@ -44,4 +44,9 @@ export class ApiConnectService  {
   deleteSecure(path:string) {
     return this._http.delete(`${this.host}${path}`)
   }
+
+
+  getExcelReport(path:string) {
+    return this._http.get(this.host + path, {responseType:'blob'})
+   }
 }

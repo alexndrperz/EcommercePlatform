@@ -108,7 +108,7 @@ class TransactsView(viewsets.ModelViewSet):
             worksheet.cell(row=row, column=3, value=item['buyer'])
             worksheet.cell(row=row, column=4, value=item['createdAt'])
             worksheet.cell(row=row, column=5, value=item['quantity'])
-            worksheet.cell(row=row, column=6, value=item['total'])
+            worksheet.cell(row=row, column=6, value=float(item['total']))
         response = HttpResponse(content_type='application/ms-excel')
         response['Content-Disposition'] = 'attachment; filename="archivo.xlsx"'
         workbook.save(response)
