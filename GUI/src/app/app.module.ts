@@ -13,7 +13,10 @@ import { LoginComponent } from './views/login/login.component';
 import { BuyProductsComponent } from './views/buyers/buy-products/buy-products.component';
 import { SeeTransactsByrComponent } from './views/buyers/see-transacts-byr/see-transacts-byr.component';
 import { TransactsAdminComponent } from './views/admin/transacts-admin/transacts-admin.component';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatTooltipModule } from '@angular/material/tooltip'
+import { ImgInputComponent } from './components/img-input/img-input.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,14 +27,18 @@ import { TransactsAdminComponent } from './views/admin/transacts-admin/transacts
     ModalComponent,
     LoginComponent,
     BuyProductsComponent,
+    ImgInputComponent,
     SeeTransactsByrComponent,
     TransactsAdminComponent
   ],
   imports: [
     BrowserModule,
+    MatSnackBarModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]

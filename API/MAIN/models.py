@@ -35,6 +35,14 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.transacts_set.count()
     
     
+class Cliente(models.Model):
+    name = models.CharField(max_length=50)
+    telefono = models.CharField(max_length=50)
+    correo = models.CharField(max_length=50)
+    createdAt = models.DateTimeField(auto_now_add=True)
+    image = models.ImageField( upload_to="images/", default="images/nf.jpg")
+    
+    
 class Productos(models.Model):
     name = models.CharField(max_length=50, )
     price = models.DecimalField(max_digits=10, decimal_places=2)

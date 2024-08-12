@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ImgInputComponent } from 'src/app/components/img-input/img-input.component';
+import { ModalComponent } from 'src/app/components/modal/modal.component';
 import { ApiConnectService } from 'src/app/services/api-connect.service';
 
 @Component({
@@ -10,13 +12,22 @@ export class UsersAdminComponent implements OnInit {
   ngOnInit(): void {
     this.getUsers()
   }
+ 
+
+  formData:any = {
+    name:"",
+    password:"",
+    telefono:"",
+    image:null,
+    correo:""
+  }
 
   constructor(private _apiConnect:ApiConnectService) {}
   internalHeaders:string[] = ['Id', 'Nombre','Total de Compras','Activo']
   internalData:any[] = []
 
   getUsers() {
-    this._apiConnect.getSecure('users')
+    this._apiConnect.getSecure('clients')
     .subscribe({
       next:(response:any) => {
         this.internalData = response.data
@@ -27,8 +38,13 @@ export class UsersAdminComponent implements OnInit {
     })
   }
 
+  getUserImage(name:string) {    
+    
+  return this._apiConnect.host.substring(0, this._apiConnect.host.length-1) + name
+  }
+
   deleteUser(evt:any) {
-    this._apiConnect.deleteSecure(`users/${evt}`)
+    this._apiConnect.deleteSecure(`clients/${evt}`)
     .subscribe({
       next:(response:any) => {
         this.getUsers()
@@ -40,9 +56,23 @@ export class UsersAdminComponent implements OnInit {
     })
   }
 
+  cleanFormObj() {
+    this.formData = {
+      name:"",
+      password:"",
+      telefono:"",
+      image:null,
+      correo:""
+    }
+  }
+
   createUser(data:any) {
-    console.log(data)
-    this._apiConnect.postSecure('users', data)
+    const formData = new FormData()
+    Object.keys(data).forEach(key => {
+      formData.append(key, data[key]);
+    });
+    
+    this._apiConnect.postSecure('clients', formData)
     .subscribe({
       next:(response:any) => {
         this.getUsers()

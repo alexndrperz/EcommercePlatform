@@ -46,7 +46,13 @@ class UserSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = models.User
-        fields= ('id','name','purchases_count','is_active')
+        fields= ('id','name','purchases_count',"image",'is_active')
+
+
+class ClientViewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Cliente
+        fields = '__all__'
 
 class TransactSerializer(serializers.ModelSerializer):
     product = serializers.SerializerMethodField()

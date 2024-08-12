@@ -1,5 +1,60 @@
 <app-navbar [activeRoute]="'users-adm'"></app-navbar>
 
-<section class="container-sm mt-4">
+<!-- <section class="container-sm mt-4">
     <app-present-table [typeTable]="'Usuarios'" [headerTable]="internalHeaders" [data]="internalData" [isUserData]="true" (createUserEvt)="createUser($event) " (deleteEventUser)="deleteUser($event)"></app-present-table>
-</section>
+</section> -->
+
+<main class="container-sm mt-4">
+    
+    <header>
+        <h3>Clientes</h3>
+        <button class="btn btn-primary" matTooltip="Añadir" data-bs-toggle="modal" data-bs-target="#modal-adm"> 
+            <span class="material-symbols-outlined">
+                    add
+            </span>
+        </button>    
+        
+    </header>
+    <hr>
+
+    <section class="user-card-container">
+        <div class="card" style="width: 18rem;" *ngFor="let item of internalData">
+            <div class="img-container">
+                <img [src]="getUserImage(item.image)" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">{{item.name}}</h5>
+              <p class="card-text"><b>Creado en:</b> {{item.createdAt | date:"dd/MM/yyyy" }}</p>
+              <p class="card-text"><b>Telefono:</b> {{item.telefono}}</p>
+              <p class="card-text"><b>Correo:</b> {{item.correo }}</p>
+            </div>
+            <div>
+                <button class="btn btn-danger" (click)="deleteUser(item.id)">
+                    <span class="material-symbols-outlined">
+                        delete
+                    </span>
+                </button>
+            </div>
+          </div>
+    </section>
+    
+</main>
+
+<app-modal modalTitle="Guardar Usuario" (guardarUser)="createUser(formData); cleanFormObj()" > 
+    <div class="img-input-container">
+        <img-input [formData]="formData"></img-input>
+    </div>
+    <div class="input-container">
+        <label>Nombre</label>
+        <input type="text" [(ngModel)]="formData.name" class="form-control">
+    </div>
+    <div class="input-container">
+        <label>Telefono</label>
+        <input type="text" [(ngModel)]="formData.telefono" class="form-control">
+    </div>
+    <div class="input-container">
+        <label>Correo</label>
+        <input type="text" [(ngModel)]="formData.correo" class="form-control">
+    </div>
+
+</app-modal>

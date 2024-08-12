@@ -7,12 +7,13 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <ng-content></ng-content>
+          <ng-content ></ng-content>
         </div>
         <div class="modal-footer">
           <button type="button" *ngIf="modalTitle == 'Añadir Producto'" class="btn btn-outline-primary" data-bs-dismiss="modal" aria-label="Close" (click)="guardar.emit()">Guardar</button>
           <button type="button" *ngIf="modalTitle == 'Editar Producto'" class="btn btn-outline-primary" data-bs-dismiss="modal" aria-label="Close" (click)="guardarEdit.emit()">Guardar</button>
-          <button type="button" *ngIf="modalTitle == 'Agregar Usuario'" class="btn btn-outline-primary" data-bs-dismiss="modal" aria-label="Close" (click)="guardarUser.emit()">Guardar</button>
+          <button type="button" *ngIf="modalTitle == 'Guardar Usuario'" class="btn btn-outline-primary" data-bs-dismiss="modal" aria-label="Close" (click)="guardarUser.emit()">Guardar</button>
+        <ng-content select="buttons"></ng-content>
         </div>
       </div>
     </div>

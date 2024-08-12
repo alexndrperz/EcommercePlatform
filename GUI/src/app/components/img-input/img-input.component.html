@@ -1,0 +1,25 @@
+<div class=''>
+    <section class="close-button" *ngIf="imageUpload" (click)="cleanImageInput()">
+        <span class="material-symbols-outlined">
+            close
+        </span>
+    </section>
+    <div id="media-uploader1" name="media-uploader1" class="" (drop)="onDrop($event)"
+        (dragover)="onDragOver($event)"
+        (click)="openFileInput()">
+        <input #fileInput type="file" style="display: none" (change)="onDrop($event)" />
+        <img #imageElement *ngIf="selectedImageSrc || formData.image"
+            [src]="showImage(formData.image)"
+            style="width: 100%; height: 100%; object-fit: cover;">
+        <div class="dz-message"
+            *ngIf="!selectedImageSrc && !formData.image">
+            Arrastre o de click para subir una imagen
+        </div>
+    </div>
+
+    <div class="alert alert-danger" *ngIf="alert.show">
+        <p>{{alert.text}}</p>
+        <button type="button" class="btn-close" (click)="alert.show = false"></button>
+    </div>
+
+</div>

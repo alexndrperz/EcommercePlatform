@@ -2,7 +2,7 @@ import os
 from openpyxl import load_workbook
 from rest_framework import viewsets
 from . import models, serializers
-from django.http import HttpResponse, JsonResponse
+from django.http import FileResponse, HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import Group
 
@@ -72,6 +72,30 @@ class UsersView(viewsets.ModelViewSet):
         return JsonResponse({}, status=204)
     
 
+
+class ClientView(viewsets.ModelViewSet):
+    queryset = models.Cliente.objects.all()
+    serializer_class = serializers.ClientViewSerializer
+    
+    def get_all_clients(self, request):
+        clientes = models.Cliente.objects.all()
+        serializer = serializers.ClientViewSerializer(clientes, many=True)
+        return JsonResponse({'data':serializer.data})
+    
+    def post_clients(self, request):
+        print(request.data)
+        serializer = serializers.ClientViewSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return JsonResponse({'msg':'Creado con exito'}, status=201) 
+    
+    def delete_cliente(self, request, id):
+        
+        product = get_object_or_404(models.Cliente, id=id)
+        product.delete()
+        return JsonResponse({}, status=204)
+        
+        
 class TransactsView(viewsets.ModelViewSet):
     queryset = models.Transacts.objects.all()
     serializer_class = serializers.TransactSerializer
@@ -113,3 +137,15 @@ class TransactsView(viewsets.ModelViewSet):
         response['Content-Disposition'] = 'attachment; filename="archivo.xlsx"'
         workbook.save(response)
         return response
+    
+class ImageView(viewsets.ModelViewSet):
+
+    def get_file_img(self, request, image_name):
+        pathFile = os.path.abspath(__file__)
+        path = pathFile.replace(r"MAIN\views.py", "") + r"images" + '\\' + image_name   
+        print(path)
+        if os.path.exists(path=path):
+            return FileResponse(open(path,'rb'),content_type='image/jpeg')
+        else:
+            print('ruta')
+            return JsonResponse({'error':'No se encuentra la imagen'}, status=404)
